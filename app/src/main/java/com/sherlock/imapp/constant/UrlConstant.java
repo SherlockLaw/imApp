@@ -11,6 +11,8 @@ public class UrlConstant {
     public static final String user_register =  "/user/register";
     public static final String user_login =  "/user/login";
     public static final String user_search =  "/user/search";
+    public static final String user_update =  "/user/update";
+    public static final String user_updatePwd =  "/user/updatePwd";
     public static final String user_getUserById =  "/user/getUserById";
     public static final String user_getUserListByIds =  "/user/getUserListByIds";
 
@@ -38,6 +40,7 @@ public class UrlConstant {
     static {
         notNeedToken.add(user_register);
         notNeedToken.add(user_login);
+        notNeedToken.add(user_updatePwd);
     }
     public static boolean isUrlNeedToken(String url){
         return !notNeedToken.contains(url);

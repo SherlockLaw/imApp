@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
 //        autoCompleteTextView.setAdapter(adapter);
         findViewById(R.id.login_btn).setOnClickListener(this);
         findViewById(R.id.resister_btn).setOnClickListener(this);
+        findViewById(R.id.update_pwd).setOnClickListener(this);
     }
     @Override
     protected void onStart(){
@@ -78,7 +79,7 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
     @Override
     public void onClick(View v){
         TextView accountView = (TextView)findViewById(R.id.auto_account);
-        TextView pwdView = (TextView)findViewById(R.id.pwd);
+        TextView pwdView = (TextView)findViewById(R.id.old_pwd);
         String account = accountView.getText().toString();
         String pwd = pwdView.getText().toString();
         switch(v.getId()) {
@@ -87,6 +88,9 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
                 break;
             case R.id.resister_btn:
                 changePage2Register();
+                break;
+            case R.id.update_pwd:
+                changePage2UpdatePwd();
                 break;
         }
     }
@@ -114,6 +118,11 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
 
     private void changePage2Register (){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+    private void changePage2UpdatePwd (){
+        Intent intent = new Intent(LoginActivity.this, UpdatePwdActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }

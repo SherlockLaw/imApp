@@ -54,10 +54,12 @@ public class HttpUtil {
         return commonGet(connection);
     }
 
+    private static final String changeRow = "\r\n";
     public static String post(String urlStr, Map<String, Object> params, Map<String, Object> headers) {
         HttpURLConnection connection = commonSet(METHOD_POST, urlStr);
         try {
             String boundary = "----"+ UUID.randomUUID().toString().replace("-","");
+
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
             connection.setRequestProperty("cache-control","no-cache");
             connection.setRequestProperty("Connection", "keep-alive");
@@ -65,7 +67,6 @@ public class HttpUtil {
             connection.setRequestProperty("Accept", "*/*");
 
             StringBuilder sb = new StringBuilder();
-            String changeRow = "\r\n";
             if (params != null && !params.isEmpty()) {
                 connection.setDoOutput(true);
                 FileNameMap fileNameMap  = URLConnection.getFileNameMap();
@@ -74,15 +75,15 @@ public class HttpUtil {
                     Object value = entry.getValue();
                     if (value==null) continue;
 
-                    sb.append("--").append(boundary).append(changeRow);
-                    sb.append("Content-Disposition: form-data; name=\"").append(entry.getKey()).append("\"");
-
                     if (value instanceof File) {
                         File v = (File) value;
+                        if (!v.exists()) continue;
+
+                        addParamStart(sb, boundary, entry.getKey());
                         //发送文件
                         String contentType = fileNameMap.getContentTypeFor(v.getAbsolutePath());
                         sb.append("; filename=").append("\"").append(v.getName()).append("\"").append(changeRow)
-                        .append("Content-Type: ").append(contentType).append(changeRow).append(changeRow);
+                                .append("Content-Type: ").append(contentType).append(changeRow).append(changeRow);
                         output.write(sb.toString().getBytes());
                         sb.delete(0,sb.length());
                         InputStream is = new FileInputStream(v);
@@ -93,6 +94,7 @@ public class HttpUtil {
                         }
                         is.close();
                     } else {
+                        addParamStart(sb, boundary, entry.getKey());
                         sb.append(changeRow)
                         .append(changeRow)
                         .append(value.toString());
@@ -111,6 +113,10 @@ public class HttpUtil {
             throw new ServiceException(COMMON_WARNING);
         }
         return commonGet(connection);
+    }
+    private static void addParamStart(StringBuilder sb, String boundary, String key){
+        sb.append("--").append(boundary).append(changeRow);
+        sb.append("Content-Disposition: form-data; name=\"").append(key).append("\"");
     }
 
     private static String genBodyByParams(Map<String, Object> params) {

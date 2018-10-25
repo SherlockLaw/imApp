@@ -24,21 +24,8 @@ public class RegisterManager {
         this.callback = callback;
     }
 
-    public void register(String account, String pwd, String name,int sex, File headPic) {
+    public void register(final String account, final String pwd, final String name,final int sex, final File headPic) {
         Runnable runnable = new Runnable() {
-            private String account;
-            private String pwd;
-            private String name;
-            private int sex;
-            private File headPic;
-            public Runnable init(String account, String pwd,String name,int sex, File headPic){
-                this.account = account;
-                this.pwd = pwd;
-                this.name = name;
-                this.sex = sex;
-                this.headPic = headPic;
-                return this;
-            }
             public void run(){
                 if (StringUtil.isBlank(account)) {
                     throw new ServiceException("账号不能为空");
@@ -60,7 +47,7 @@ public class RegisterManager {
                 AccountDBService.upsertAccount(user.getId(),user.getAccount(),pwd,user.getHeadPic());
                 callback.registerSuccess(user);
             }
-        }.init(account, pwd,name,sex, headPic);
+        };
         ThreadPoolService.execute(runnable);
     }
 }

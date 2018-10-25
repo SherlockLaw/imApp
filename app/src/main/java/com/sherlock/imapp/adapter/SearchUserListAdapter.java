@@ -38,7 +38,7 @@ public class SearchUserListAdapter extends ArrayAdapter{
         ((TextView) view.findViewById(R.id.name)).setText(item.getName());
         ((TextView) view.findViewById(R.id.sex)).setText(OtherConstant.getSex(item.getSex()).getName());
         ImageView imageView = (ImageView) view.findViewById(R.id.headPic);
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(item.getId()),item.getHeadPic(),imageView);
+        BitMapPresenter.showUserHeadPic(item.getHeadPic(),imageView);
         return view;
     }
 }

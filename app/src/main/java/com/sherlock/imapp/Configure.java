@@ -7,8 +7,8 @@ import java.nio.charset.Charset;
  */
 
 public class Configure {
-//    private static final String INTENT_IP = "192.168.0.5";
-    private static final String INTENT_IP = "116.85.58.123";
+    private static final String INTENT_IP = "192.168.0.5";
+//    private static final String INTENT_IP = "116.85.58.123";
     private static final int INTENT_PORT = 8088;
 
     private static final int HTTP_PORT = 18081;

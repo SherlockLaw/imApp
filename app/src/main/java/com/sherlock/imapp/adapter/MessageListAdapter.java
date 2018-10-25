@@ -78,7 +78,7 @@ public class MessageListAdapter extends ArrayAdapter {
             layout.addView(blankTextView);
         }
 
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(curUser.getId()),curUser.getHeadPic(),headPicView);
+        BitMapPresenter.showUserHeadPic(curUser.getHeadPic(),headPicView);
         return view;
     }
     private void addMessage(LinearLayout layout, int chatImgId,ImMessage msg){
@@ -93,7 +93,7 @@ public class MessageListAdapter extends ArrayAdapter {
             ImageView imageView = new ImageView(getContext());
             String fileName = message.getMid()+".jpg";
             String url = BitMapUtil.getShowPicUrl(message.getUrl(),message.getWidth(),message.getHeigth(),800);
-            BitMapPresenter.showImPic(fileName,url,imageView);
+            BitMapPresenter.showImPic(url,imageView);
             layout.addView(imageView);
         }
     }

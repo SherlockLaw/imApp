@@ -37,7 +37,7 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView,View.
 
         ImageView headPicView = (ImageView)findViewById(R.id.headPic);
         //加载图片
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(userVO.getId()),userVO.getHeadPic(),headPicView);
+        BitMapPresenter.showUserHeadPic(userVO.getHeadPic(),headPicView);
     }
 
     @Override

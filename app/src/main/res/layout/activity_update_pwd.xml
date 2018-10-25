@@ -1,43 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/headPic"
-        android:layout_width="81dp"
-        android:layout_height="78dp"
-        app:srcCompat="@mipmap/ic_launcher"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="152dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
         android:id="@+id/account"
         android:layout_width="@dimen/edit_width"
         android:layout_height="@dimen/edit_height"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="148dp"
         android:ems="10"
         android:hint="账号"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/headPic" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/old_pwd"
         android:layout_width="@dimen/edit_width"
         android:layout_height="@dimen/edit_height"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="密码"
+        android:hint="旧密码"
         android:inputType="textPassword"
         android:text=""
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,46 +39,34 @@
         android:layout_width="@dimen/edit_width"
         android:layout_height="@dimen/edit_height"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="重新输入密码"
+        android:hint="新密码"
         android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/old_pwd" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/retype_new_pwd"
         android:layout_width="@dimen/edit_width"
         android:layout_height="@dimen/edit_height"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="名称"
-        android:inputType="textPersonName"
-        android:text=""
+        android:hint="重新输入新密码"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_pwd" />
 
-    <Spinner
-        android:id="@+id/sex"
-        android:layout_width="@dimen/edit_width"
-        android:layout_height="@dimen/edit_height"
-        android:layout_marginTop="@dimen/register_margin_top"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        android:text=""
-        android:layout_marginLeft="92dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
     <Button
-        android:id="@+id/btn_resister"
+        android:id="@+id/btn_update_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="148dp"
-        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="60dp"
         android:elevation="0dp"
-        android:text="注册"
+        android:text="修改密码"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sex" />
-
+        app:layout_constraintTop_toBottomOf="@+id/retype_new_pwd" />
 </android.support.constraint.ConstraintLayout>

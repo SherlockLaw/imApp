@@ -37,7 +37,7 @@ public class NewFriendsAdapter extends ArrayAdapter {
         final FriendReqVO item = (FriendReqVO) getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.headPic);
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(item.getUserId()),item.getHeadPic(),imageView);
+        BitMapPresenter.showUserHeadPic(item.getHeadPic(),imageView);
         ((TextView) view.findViewById(R.id.name)).setText(item.getName());
         ((TextView) view.findViewById(R.id.sex)).setText(OtherConstant.getSex(item.getSex()).getName());
 

@@ -16,40 +16,26 @@ public class BitMapPresenter {
 
     /**
      * 显示头像
-     * @param fileName
      * @param url
      * @param imageView
      */
-    public static void showUserHeadPic(final String fileName, final String url, ImageView imageView){
-        showImageBitmap(FileUtil.picUserParentPath,fileName,url,imageView);
+    public static void showUserHeadPic(final String url, ImageView imageView){
+        showImageBitmap(url,imageView);
     }
 
     /**
      * 显示Im图片
-     * @param fileName
      * @param url
      * @param imageView
      */
-    public static void showImPic(final String fileName, final String url, ImageView imageView){
-        showImageBitmap(FileUtil.picImParentPath,fileName,url,imageView);
+    public static void showImPic(final String url, ImageView imageView){
+        showImageBitmap(url,imageView);
     }
-    private static void showImageBitmap(final String parentPath, final String fileName, final String url, ImageView imageView) {
+    private static void showImageBitmap(final String url, final ImageView imageView) {
         Runnable runnable = new Runnable() {
-            private String parentPath;
-            private String fileName;
-            private String url;
-            private ImageView imageView;
-            public Runnable init(final String parentPath, final String fileName, final String url,ImageView imageView){
-                this.parentPath = parentPath;
-                this.fileName = fileName;
-                this.url = url;
-                this.imageView = imageView;
-                return this;
-            }
             @Override
             public void run() {
-                Bitmap bitmap = BitMapUtil.getImageBitmap(parentPath,fileName, url);
-//                imageView.setImageBitmap(bitmap);
+                Bitmap bitmap = BitMapUtil.getImageBitmap(url);
                 MyApplication.getInstance().runOnUiThread(new Runnable() {
                     private Bitmap bitmap;
                     public Runnable init(Bitmap bitmap){
@@ -62,7 +48,7 @@ public class BitMapPresenter {
                     }
                 }.init(bitmap));
             }
-        }.init(parentPath,fileName,url,imageView);
+        };
         ThreadPoolService.execute(runnable);
     }
 

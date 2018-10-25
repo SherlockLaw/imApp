@@ -49,9 +49,10 @@ public class BitMapUtil {
      * @param url
      * @return
      */
-    public static Bitmap getImageBitmap(String parentPath,String fileName,String url){
-        String dirPath = parentPath+generateRandomDir(fileName);
-        String filePath = dirPath+fileName;
+    public static Bitmap getImageBitmap(String url){
+        String fileName = url.replaceAll("\\/","-")+".jpg";
+        String dirPath = FileUtil.picPath+generateRandomDir(fileName);
+        String filePath = dirPath + fileName;
         File file = new File(filePath);
         Bitmap bitmap;
         // 内存缓存

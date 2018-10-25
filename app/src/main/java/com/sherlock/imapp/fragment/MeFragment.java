@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.sherlock.imapp.MyApplication;
 import com.sherlock.imapp.R;
 import com.sherlock.imapp.activity.LoginActivity;
+import com.sherlock.imapp.activity.UpdateUserActivity;
 import com.sherlock.imapp.constant.MessageConstant;
 import com.sherlock.imapp.constant.OtherConstant;
 import com.sherlock.imapp.entity.UserVO;
@@ -25,27 +26,29 @@ import com.sherlock.imapp.presenter.BitMapPresenter;
  * Created by Administrator on 2018/5/12 0012.
  */
 
-public class MeFragment extends Fragment{
+public class MeFragment extends Fragment implements View.OnClickListener{
 
     private ImageView headPicView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_me, container, false);
-        UserVO userVO = MyApplication.getUser();
         headPicView = (ImageView) view.findViewById(R.id.headPic);
+        ((Button)view.findViewById(R.id.logout)).setOnClickListener(this);
+        view.findViewById(R.id.update_user).setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        View view = getView();
+        UserVO userVO = MyApplication.getUser();
         ((TextView)view.findViewById(R.id.account)).setText(userVO.getAccount());
         ((TextView)view.findViewById(R.id.name)).setText(userVO.getName());
         ((TextView)view.findViewById(R.id.sex)).setText(OtherConstant.getSex(userVO.getSex()).getName());
-        ((Button)view.findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
         //加载图片
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(userVO.getId()),userVO.getHeadPic(),headPicView);
-        return view;
+        BitMapPresenter.showUserHeadPic(userVO.getHeadPic(),headPicView);
     }
 
     public void logout(){
@@ -65,5 +68,22 @@ public class MeFragment extends Fragment{
         Intent intent = new Intent(activity, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logout:
+                logout();
+                break;
+            case R.id.update_user:
+                changePage2UpdateUser();
+                break;
+        }
+    }
+    private void changePage2UpdateUser (){
+        Intent intent = new Intent(getActivity(), UpdateUserActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 }

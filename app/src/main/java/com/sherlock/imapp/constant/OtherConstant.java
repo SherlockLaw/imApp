@@ -18,6 +18,15 @@ public class OtherConstant {
         }
         return null;
     }
+    public static int getSexIndex(int sex) {
+        for (int i=0; i<sexArray.length; ++i){
+            Sex e = sexArray[i];
+            if (sex==sexArray[i].getSex()) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public enum IsFriendEnum {
         notFriend(1,"非好友"),
         friend(2,"好友");

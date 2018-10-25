@@ -148,6 +148,12 @@ public class MyApplication extends Application {
     public static void setUser(UserVO user){
         getInstance().setProperty(KEY_USER,user);
     }
+    public static void updateUser(UserVO user){
+        UserVO oldUser = getUser();
+        oldUser.setHeadPic(user.getHeadPic());
+        oldUser.setName(user.getName());
+        oldUser.setSex(user.getSex());
+    }
 
     /**
      * 获得当前用户

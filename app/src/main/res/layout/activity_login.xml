@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/pwd"
+        android:id="@+id/old_pwd"
         android:layout_width="@dimen/edit_width"
         android:layout_height="@dimen/edit_height"
         android:layout_marginLeft="92dp"
@@ -61,5 +61,18 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/update_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:clickable="true"
+        android:text="修改密码"
+        android:textColor="@color/RoyalBlue"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

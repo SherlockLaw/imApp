@@ -60,7 +60,7 @@ public class AddGroupUserListAdapter  extends ArrayAdapter {
         }.init(item.getId()));
 
         ImageView imageView = (ImageView) view.findViewById(R.id.headPic);
-        BitMapPresenter.showUserHeadPic(MessageConstant.getUserStr(item.getId()),item.getHeadPic(),imageView);
+        BitMapPresenter.showUserHeadPic(item.getHeadPic(),imageView);
         return view;
     }
 

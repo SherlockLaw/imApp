@@ -50,7 +50,7 @@ public class ConversationListAdapter extends ArrayAdapter {
         badgeView.bindTarget(imageView).setBadgeNumber(item.getUnreadCount());
         badgeView.setForegroundGravity(Gravity.LEFT);
 
-        BitMapPresenter.showUserHeadPic(MessageConstant.getStr(item.getGtype(),item.getGid()),item.getPic(),imageView);
+        BitMapPresenter.showUserHeadPic(item.getPic(),imageView);
         return view;
     }
 }

@@ -24,6 +24,8 @@
         <activity android:name=".activity.ConversationActivity"></activity>
         <activity android:name=".activity.NewFriendsActivity"></activity>
         <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.UpdateUserActivity"></activity>
+        <activity android:name=".activity.UpdatePwdActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

@@ -36,7 +36,7 @@ public class GroupListAdapter extends ArrayAdapter {
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
         ((TextView) view.findViewById(R.id.name)).setText(item.getName());
         ImageView imageView = (ImageView) view.findViewById(R.id.headPic);
-        BitMapPresenter.showUserHeadPic(MessageConstant.getGroupStr(item.getId()), item.getHeadPic(), imageView);
+        BitMapPresenter.showUserHeadPic(item.getHeadPic(), imageView);
         return view;
     }
 }

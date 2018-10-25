@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/headPic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="@dimen/edit_width"
+        android:layout_height="0dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="名称"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headPic" />
+
+    <Spinner
+        android:id="@+id/sex"
+        android:layout_width="@dimen/edit_width"
+        android:layout_height="@dimen/edit_height"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="32dp"
+        android:text=""
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <Button
+        android:id="@+id/btn_update_user"
+        android:layout_width="@dimen/edit_width"
+        android:layout_height="@dimen/edit_height"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="52dp"
+        android:text="修改"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sex" />
+</android.support.constraint.ConstraintLayout>
