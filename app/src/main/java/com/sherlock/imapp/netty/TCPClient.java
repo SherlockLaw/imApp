@@ -24,6 +24,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 /**
  * Created by Administrator on 2018/5/8 0008.
@@ -36,7 +38,7 @@ public class TCPClient {
 
     private volatile boolean connecting;
     private Semaphore semaphore = new Semaphore(1);
-    private Lock lock = new ReentrantLock();
+//    private Lock lock = new ReentrantLock();
     private static BlockingQueue<Integer> threadQueue = new ArrayBlockingQueue<>(1);
 
     public static TCPClient getInstance() {
@@ -71,16 +73,26 @@ public class TCPClient {
                     try {
                         threadQueue.take();
                         //之前已经有线程在连接过程中
-                        lock.lock();
+//                        lock.lock();
+                        semaphore.acquire();
                         if(connecting){
-                            lock.unlock();
+//                            lock.unlock();
+                            semaphore.release();
                             return;
                         }
                         connecting = true;
-                        lock.unlock();
+
                         while (connecting) {
                             try {
-                                f = b.connect().sync();
+                                f = b.connect();
+                                f.addListener(new GenericFutureListener<Future<? super Void>>() {
+                                    @Override
+                                    public void operationComplete(Future<? super Void> future) throws Exception {
+                                        semaphore.release();
+                                    }
+                                });
+//                                lock.unlock();
+                                f.sync();
                                 //成功连接之后设置重连次数为0
                                 reConnectTimes = 0;
                                 f.channel().closeFuture().sync();
@@ -92,6 +104,7 @@ public class TCPClient {
                                     ToastService.toastMsg("无法打开TCP连接");
                                 }
                             } finally {
+
                                 try {
                                     Thread.sleep(reConnectTime[reConnectTimes]);
                                 } catch (InterruptedException e) {
@@ -133,10 +146,16 @@ public class TCPClient {
     }
 
     private ChannelFuture disconnect0(){
-        lock.lock();
+//        lock.lock();
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         threadQueue.clear();
         connecting = false;
-        lock.unlock();
+//        lock.unlock();
+        semaphore.release();
         ChannelFuture future = null;
         if (f!=null && f.channel().isOpen()) {
             future = f.channel().close();
