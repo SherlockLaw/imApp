@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/wellocm"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:layout_marginBottom="396dp"
         android:layout_marginLeft="108dp"
+        android:clickable="true"
         android:text="欢 迎 使 用"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,7 @@
         android:layout_marginTop="60dp"
         android:hint="账号"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/wellocm" />
 
     <EditText
         android:id="@+id/old_pwd"

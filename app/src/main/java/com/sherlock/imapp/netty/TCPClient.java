@@ -48,7 +48,7 @@ public class TCPClient {
     }
 
     public void init() {
-        b.group(group).channel(NioSocketChannel.class).remoteAddress(new InetSocketAddress(Configure.getIntentIp(), Configure.getIntentPort()))
+        b.group(group).channel(NioSocketChannel.class).remoteAddress(new InetSocketAddress(Configure.getInstance().getIp(), Configure.getInstance().getSocketPort()))
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {

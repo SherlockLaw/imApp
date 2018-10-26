@@ -1,5 +1,9 @@
 package com.sherlock.imapp;
 
+import com.alibaba.fastjson.JSONObject;
+import com.sherlock.imapp.utils.FileUtil;
+import com.sherlock.imapp.utils.StringUtil;
+
 import java.nio.charset.Charset;
 
 /**
@@ -7,12 +11,25 @@ import java.nio.charset.Charset;
  */
 
 public class Configure {
-//    private static final String INTENT_IP = "192.168.0.5";
-    private static final String INTENT_IP = "116.85.58.123";
-    private static int INTENT_PORT = 8088;
+//    private static final String ip = "192.168.0.5";
+    private String ip = "116.85.58.123";
+    private int socketPort = 8088;
+    private int httpPort = 18081;
 
-    private static final int HTTP_PORT = 18081;
+    private static Configure configure;
+    static {
+        String configStr = FileUtil.readConfig();
+        if (StringUtil.isBlank(configStr)) {
+            configure = new Configure();
+            FileUtil.writeConfig(JSONObject.toJSONString(configure));
+        } else {
+            configure = JSONObject.parseObject(configStr, Configure.class);
+        }
 
+    }
+    private Configure(){
+
+    }
     ///////////////////TCP的属性值------------------------
     public static final int HEAD_LENGTH = 10;
     public static final int POSITION_LENGTH = 6;
@@ -57,26 +74,48 @@ public class Configure {
     public final static int HEARTBEAT_TIME = 5;
     ///////////////////TCP的属性值------------------------
 
-    private static String baseUrl = getBaseUrl(INTENT_IP, HTTP_PORT);
+    private static String httpBaseUrl = setHttpBaseUrl();
 
-    public static String getBaseUrl(String ip, int port){
-        String url = "http://"+ip+":"+port;
+    private static String setHttpBaseUrl(){
+        String url = "http://"+configure.ip+":"+configure.httpPort;
         return url;
     }
-    public static String getIntentIp() {
-        return INTENT_IP;
+
+    public static Configure getInstance() {
+        return configure;
     }
 
-    public static int getIntentPort() {
-        return INTENT_PORT;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public static void setBaseUrl(String ip, int httpPort,int socketPort){
-        INTENT_PORT = socketPort;
-        baseUrl = getBaseUrl(ip, httpPort);
+    public void setSocketPort(int socketPort) {
+        this.socketPort = socketPort;
     }
 
-    public static String getBaseUrl() {
-        return baseUrl;
+    public void setHttpPort(int httpPort) {
+        this.httpPort = httpPort;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+    public int getSocketPort() {
+        return socketPort;
+    }
+    public int getHttpPort() {
+        return httpPort;
+    }
+
+    public static void setHttpBaseUrl(String ip, int httpPort, int socketPort){
+        configure.ip = ip;
+        configure.httpPort = httpPort;
+        configure.socketPort = socketPort;
+        httpBaseUrl = setHttpBaseUrl();
+        FileUtil.writeConfig(JSONObject.toJSONString(configure));
+    }
+
+    public static String getHttpBaseUrl() {
+        return httpBaseUrl;
     }
 }

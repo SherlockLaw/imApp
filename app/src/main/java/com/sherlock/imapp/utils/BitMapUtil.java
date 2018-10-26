@@ -50,6 +50,9 @@ public class BitMapUtil {
      * @return
      */
     public static Bitmap getImageBitmap(String url){
+        if (StringUtil.isBlank(url)) {
+            return null;
+        }
         String fileName = url.replaceAll("\\/","-")+".jpg";
         String dirPath = FileUtil.picPath+generateRandomDir(fileName);
         String filePath = dirPath + fileName;

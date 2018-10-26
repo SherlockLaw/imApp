@@ -26,6 +26,7 @@
         <activity android:name=".activity.UserInfoActivity"></activity>
         <activity android:name=".activity.UpdateUserActivity"></activity>
         <activity android:name=".activity.UpdatePwdActivity"></activity>
+        <activity android:name=".activity.ChangeEnvironmentActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

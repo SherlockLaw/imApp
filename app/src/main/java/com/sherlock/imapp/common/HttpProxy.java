@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.sherlock.imapp.Configure;
 import com.sherlock.imapp.MyApplication;
 import com.sherlock.imapp.constant.UrlConstant;
-import com.sherlock.imapp.entity.UserVO;
 import com.sherlock.imapp.utils.HttpUtil;
 
 import java.util.List;
@@ -20,13 +19,13 @@ public class HttpProxy {
 
     public static String get(String urlStr, Map<String, Object> params, Map<String, Object> headers){
         addToken(urlStr,params);
-        String httpResult = HttpUtil.get(Configure.getBaseUrl()+urlStr, params, headers);
+        String httpResult = HttpUtil.get(Configure.getHttpBaseUrl()+urlStr, params, headers);
         return after(httpResult);
     }
 
     public static String post(String urlStr, Map<String, Object> params, Map<String, Object> headers){
         addToken(urlStr,params);
-        String httpResult = HttpUtil.post(Configure.getBaseUrl()+urlStr, params, headers);
+        String httpResult = HttpUtil.post(Configure.getHttpBaseUrl()+urlStr, params, headers);
         return after(httpResult);
     }
     private static void addToken(String urlStr, Map<String, Object> params){

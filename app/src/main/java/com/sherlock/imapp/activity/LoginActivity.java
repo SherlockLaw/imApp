@@ -31,6 +31,11 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
     private AccountAdapter adapter;
 
     private List<AccountVO> list = new ArrayList<>();
+
+    private long lastClickTime = 0;
+    private int clickCount = 0;
+    private final long triggerTime = 2*1000;
+    private final int clickThreshold = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,7 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
         findViewById(R.id.login_btn).setOnClickListener(this);
         findViewById(R.id.resister_btn).setOnClickListener(this);
         findViewById(R.id.update_pwd).setOnClickListener(this);
+        findViewById(R.id.wellocm).setOnClickListener(this);
     }
     @Override
     protected void onStart(){
@@ -92,6 +98,23 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
             case R.id.update_pwd:
                 changePage2UpdatePwd();
                 break;
+            case R.id.wellocm: {
+                //更改环境的逻辑
+                long curTime = System.currentTimeMillis();
+
+                if (curTime>lastClickTime+triggerTime){
+                    lastClickTime = curTime;
+                    clickCount=1;
+                    break;
+                }
+                if (++clickCount>=clickThreshold){
+                    lastClickTime = curTime;
+                    clickCount = 0;
+                    changePage2ChangeEnvironment();
+                    break;
+                }
+                break;
+            }
         }
     }
 
@@ -128,6 +151,11 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
     }
     private void changePage2Im (){
         Intent intent = new Intent(LoginActivity.this, ImActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+    private void changePage2ChangeEnvironment (){
+        Intent intent = new Intent(LoginActivity.this, ChangeEnvironmentActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
