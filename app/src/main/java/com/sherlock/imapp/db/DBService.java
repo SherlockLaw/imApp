@@ -94,7 +94,7 @@ public class DBService extends SQLiteOpenHelper{
      * @param user
      */
     private static Lock userLock = new ReentrantLock();
-    public static void upsertUser(UserVO user){
+    public static void upsertUser(UserVO user,boolean updateFriendRel){
         try {
             userLock.lock();
             UserVO po = getUser(user.getId());
@@ -103,8 +103,10 @@ public class DBService extends SQLiteOpenHelper{
                 dBService.db.execSQL(sql, new String[]{user.getId()+"", user.getAccount(), user.getSex()+"", user.getName(), user.getHeadPic(), user.getIsFriend()+""});
                 return ;
             }
-            if (user.getIsFriend()== OtherConstant.IsFriendEnum.friend.getIndex()
-                    || user.getIsFriend()== OtherConstant.IsFriendEnum.notFriend.getIndex()) {
+            if (updateFriendRel &&
+                    (user.getIsFriend()== OtherConstant.IsFriendEnum.friend.getIndex()
+                            || user.getIsFriend()== OtherConstant.IsFriendEnum.notFriend.getIndex())
+                    ) {
                 String sql = "update im_user set isFriend=? where id=?";
                 dBService.db.execSQL(sql,new String[]{user.getIsFriend()+"",user.getId()+""});
             }

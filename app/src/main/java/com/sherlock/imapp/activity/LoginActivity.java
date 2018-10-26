@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
 //        adapter = new AccountAdapter(this,R.layout.item_account, list);
 //        autoCompleteTextView.setAdapter(adapter);
         findViewById(R.id.login_btn).setOnClickListener(this);
-        findViewById(R.id.resister_btn).setOnClickListener(this);
+        findViewById(R.id.btn_resister).setOnClickListener(this);
         findViewById(R.id.update_pwd).setOnClickListener(this);
         findViewById(R.id.wellocm).setOnClickListener(this);
     }
@@ -92,7 +92,7 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
             case R.id.login_btn:
                 presenter.login(account,pwd);
                 break;
-            case R.id.resister_btn:
+            case R.id.btn_resister:
                 changePage2Register();
                 break;
             case R.id.update_pwd:

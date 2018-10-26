@@ -41,7 +41,7 @@ public class CommonManager {
         //存储最新的联系人
         for (UserVO po : list) {
             po.setIsFriend(OtherConstant.IsFriendEnum.friend.getIndex());
-            DBService.upsertUser(po);
+            DBService.upsertUser(po,false);
         }
         //刷新页面
         MyApplication.getInstance().showFriendListFragment();
@@ -50,7 +50,7 @@ public class CommonManager {
     /**
      * 获取用户并且存储在数据库
      */
-    public static void getFriendListFromServerAndSave(List<Integer> userIds) {
+    private static void getUserListFromServerAndSave(List<Integer> userIds) {
         Map<String, Object> params = new HashMap<>();
         params.put("userIds", HttpProxy.getParamStrByArray(userIds));
         String result = HttpProxy.get(UrlConstant.user_getUserListByIds, params, null);
@@ -58,7 +58,7 @@ public class CommonManager {
         //存储最新的联系人
         for (UserVO po : list) {
             po.setIsFriend(OtherConstant.IsFriendEnum.notFriend.getIndex());
-            DBService.upsertUser(po);
+            DBService.upsertUser(po,false);
         }
     }
 
@@ -76,7 +76,7 @@ public class CommonManager {
             DBService.upsertGroup(po);
             List<Integer> memberIds = po.getMemberIds();
             //存储用户信息
-            getFriendListFromServerAndSave(memberIds);
+            getUserListFromServerAndSave(memberIds);
             //成员
             for (int memberId : memberIds) {
                 GroupMem mem = new GroupMem();
@@ -102,7 +102,7 @@ public class CommonManager {
             //成员
             for (UserVO member : members) {
                 member.setIsFriend(OtherConstant.IsFriendEnum.notFriend.getIndex());
-                DBService.upsertUser(member);
+                DBService.upsertUser(member,false);
 
                 GroupMem mem = new GroupMem();
                 mem.setGroupId(po.getId());

@@ -58,7 +58,7 @@ public class RegisterActivity extends ImgBaseActivity implements RegisterView,Vi
         spinner.setOnItemSelectedListener(new SexOnItemSelectedListener());
         presenter = new RegisterPresenter(this);
 
-        findViewById(R.id.resister_btn).setOnClickListener(this);
+        findViewById(R.id.btn_resister).setOnClickListener(this);
         FileUtil.createFileIfNotExist(FileUtil.picPath , FileUtil.regisgerHeadPicName);
     }
 

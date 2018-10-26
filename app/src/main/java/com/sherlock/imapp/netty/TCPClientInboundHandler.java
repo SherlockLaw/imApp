@@ -96,7 +96,7 @@ public class TCPClientInboundHandler extends ChannelInboundHandlerAdapter {
             if (MessageConstant.AddFriendConfirmStatusEnum.agree.getIndex() == message.getStatus()) {
                 UserVO po = message.getUserInfo();
                 po.setIsFriend(OtherConstant.IsFriendEnum.friend.getIndex());
-                DBService.upsertUser(po);
+                DBService.upsertUser(po,true);
                 //刷新好友列表
                 MyApplication.getInstance().showFriendListFragment();
             }
@@ -112,7 +112,7 @@ public class TCPClientInboundHandler extends ChannelInboundHandlerAdapter {
             UserVO po = new UserVO();
             po.setId(message.getFriendId());
             po.setIsFriend(OtherConstant.IsFriendEnum.notFriend.getIndex());
-            DBService.upsertUser(po);
+            DBService.upsertUser(po,true);
             //刷新好友列表
             MyApplication.getInstance().showFriendListFragment();
         }
